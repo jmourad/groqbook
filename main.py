@@ -80,7 +80,7 @@ class Book:
 
 def create_markdown_file(content: str) -> BytesIO:
     """
-    Create a Markdown file from the provided content.
+    Cree un archivo Markdown a partir del contenido proporcionado.
     """
     markdown_file = BytesIO()
     markdown_file.write(content.encode('utf-8'))
@@ -93,11 +93,11 @@ def generate_book_structure(prompt: str):
         messages=[
             {
                 "role": "system",
-                "content": "Write in JSON format:\n\n{\"Title of section goes here\":\"Description of section goes here\",\n\"Title of section goes here\":{\"Title of section goes here\":\"Description of section goes here\",\"Title of section goes here\":\"Description of section goes here\",\"Title of section goes here\":\"Description of section goes here\"}}"
+                "content": "Escribe en formato JSON:\n\n{\"El título de la sección va aquí\":\"La descripción de la sección va aquí\",\n\"El título de la sección va aquí\":{\"El título de la sección va aquí\" aquí\":\"La descripción de la sección va aquí\",\"El título de la sección va aquí\":\"La descripción de la sección va aquí\",\"El título de la sección va aquí\":\"La descripción de la sección va aquí aquí\"}}"
             },
             {
                 "role": "user",
-                "content": f"Write a comprehensive structure, omiting introduction and conclusion sections (forward, author's note, summary), for a long (>300 page) book on the following subject:\n\n<subject>{prompt}</subject>"
+                "content": f"Escriba una estructura integral, omitiendo las secciones de introducción y conclusión (adelante, nota del autor, resumen), para un libro extenso (>300 páginas) sobre el siguiente tema:\n\n<subject>{prompt}</subject>"
             }
         ],
         temperature=0.3,
@@ -116,11 +116,11 @@ def generate_section(prompt: str):
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a long, comprehensive, structured chapter for the section provided."
+                "content": "Eres un escritor experto, escribes los libros en español. Genere un capítulo largo, completo y estructurado para la sección proporcionada."
             },
             {
                 "role": "user",
-                "content": f"Generate a long, comprehensive, structured chapter for the following section:\n\n<section_title>{prompt}</section_title>"
+                "content": f"Genere un capítulo largo, completo y estructurado para la siguiente sección:\n\n<section_title>{prompt}</section_title>"
             }
         ],
         temperature=0.3,
@@ -142,7 +142,7 @@ if 'button_text' not in st.session_state:
     st.session_state.button_text = "Generate"
 
 st.write("""
-# Groqbook: Write full books using llama3 (8b and 70b) on Groq
+# Groqbook: Escribe libros completos usando llama3 (8b y 70b) en Groq
 """)
 
 def disable():
@@ -165,13 +165,13 @@ try:
                 mime='text/plain'
             )
         else:
-            raise ValueError("Please generate content first before downloading the book.")
+            raise ValueError("Primero genere contenido antes de descargar el libro.")
 
     with st.form("groqform"):
         if not GROQ_API_KEY:
             groq_input_key = st.text_input("Enter your Groq API Key (gsk_yA...):", "",type="password")
 
-        topic_text = st.text_input("What do you want the book to be about?", "")
+        topic_text = st.text_input("¿De qué quieres que trate el libro?", "")
 
         submitted = st.form_submit_button(st.session_state.button_text,on_click=disable,disabled=st.session_state.button_disabled)
 
@@ -211,7 +211,7 @@ try:
                 stream_section_content(book_structure_json)
             
             except json.JSONDecodeError:
-                st.error("Failed to decode the book structure. Please try again.")
+                st.error("No se pudo decodificar la estructura del libro. Inténtalo de nuevo.")
 
             enable()
 
